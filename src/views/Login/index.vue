@@ -1,18 +1,18 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="form" class="login-form">
+    <el-form :model="form" :rules="rules" ref="loginForm" class="login-form">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
-      <el-form-item>
+      <el-form-item prop="username">
         <svg-icon icon="user" class="svg-container" />
         <el-input v-model="form.username" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <svg-icon icon="password" class="svg-container" />
         <el-input v-model="form.password" />
       </el-form-item>
-      <el-button type="primary" class="login-button">登录</el-button>
+      <el-button type="primary" @click="handleLogin" class="login-button">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -21,10 +21,32 @@
 import { ref } from 'vue'
 
 const form = ref({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 
+const rules = ref({
+  username: [
+    { required: true, message: 'Please input Activity name', trigger: 'blur' },
+    { min: 1, max: 20, message: 'Length should be 1 to 20', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: 'Please select Activity password', trigger: 'blur' },
+    { min: 3, max: 10, message: 'Length should be 3 to 10', trigger: 'blur' }
+  ]
+})
+
+const loginForm = ref(null)
+const handleLogin = () => {
+  loginForm.value.validate((valid) => {
+    if (valid) {
+      console.log('error submit!!')
+    } else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -55,23 +77,20 @@ $cursor: #fff;
     }
 
     ::v-deep .el-input {
-      display: inline-block;
-      height: 47px;
-      width: 85%;
+      width: 93.2%;
 
       input {
-        // background: transparent;
-        border: 0px;
-        // -webkit-appearance: none;
-        border-radius: 0px;
-        padding: 12px 5px 12px 15px;
-        color: $light_gray;
+        margin: 0 -10.5px;
         height: 47px;
-        // background-color: $bg;
-        box-shadow: 9px 2px 6px 4px #2d3a4b;
+        width: 400px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        background: $bg;
+        color: $light_gray;
         caret-color: $cursor;
       }
     }
+
     .login-button {
       width: 100%;
       box-sizing: border-box;
