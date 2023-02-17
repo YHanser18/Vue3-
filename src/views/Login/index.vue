@@ -10,7 +10,12 @@
       </el-form-item>
       <el-form-item prop="password">
         <svg-icon icon="password" class="svg-container" />
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" :type="passwordType" show-password />
+        <svg-icon
+          :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+          @click="changeType"
+          class="svg-container"
+        />
       </el-form-item>
       <el-button type="primary" @click="handleLogin" class="login-button">登录</el-button>
     </el-form>
@@ -19,6 +24,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { login } from '@/api/login'
 
 const form = ref({
   username: 'admin',
@@ -38,14 +44,25 @@ const rules = ref({
 
 const loginForm = ref(null)
 const handleLogin = () => {
-  loginForm.value.validate((valid) => {
+  loginForm.value.validate(async (valid) => {
     if (valid) {
-      console.log('error submit!!')
+      console.log(loginForm.value)
+      const res = await login(loginForm.value)
+      console.log(res)
     } else {
       console.log('error submit!!')
       return false
     }
   })
+}
+
+const passwordType = ref('password')
+const changeType = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
 }
 </script>
 
@@ -77,7 +94,7 @@ $cursor: #fff;
     }
 
     ::v-deep .el-input {
-      width: 93.2%;
+      width: 84.2%;
 
       input {
         margin: 0 -10.5px;
