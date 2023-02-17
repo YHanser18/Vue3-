@@ -33,6 +33,7 @@ module.exports = defineConfig({
       .rule('svg') // 规则
       .exclude.add(resolve('src/icons')) // 忽略
       .end() // 结束
+
     // config.module 表示创建一个具名规则，以后用来修改规则
     config.module
       .rule('icons') // 规则
@@ -45,9 +46,11 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]' // loader 的配置
       })
       .end() // 结束
+
     config
       .plugin('ignore')
       .use(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/))
+
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -59,5 +62,5 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
-  }
+  },
 })
