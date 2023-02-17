@@ -24,7 +24,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { login } from '@/api/login'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const form = ref({
   username: 'admin',
@@ -46,9 +47,7 @@ const loginForm = ref(null)
 const handleLogin = () => {
   loginForm.value.validate(async (valid) => {
     if (valid) {
-      console.log(loginForm.value)
-      const res = await login(loginForm.value)
-      console.log(res)
+      store.dispatch('app/login', form.value)
     } else {
       console.log('error submit!!')
       return false
@@ -94,20 +93,20 @@ $cursor: #fff;
     }
 
     ::v-deep .el-input {
-      width: 84.2%;
+      display: inline-block;
+      height: 47px;
+      width: 85%;
 
       input {
-        margin: 0 -10.5px;
-        height: 47px;
-        width: 400px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-        background: $bg;
+        background: transparent;
+        border: 0px;
+        border-radius: 0px;
+        padding: 12px 5px 12px 15px;
         color: $light_gray;
+        height: 47px;
         caret-color: $cursor;
       }
     }
-
     .login-button {
       width: 100%;
       box-sizing: border-box;
