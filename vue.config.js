@@ -24,6 +24,7 @@ module.exports = defineConfig({
       }
     }
   },
+  // 配置element-plus按需引入
   configureWebpack: (config) => {
     config.plugins.push(
       AutoImport({
@@ -36,6 +37,19 @@ module.exports = defineConfig({
       })
     )
   },
+  // 配置全局sass
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData:
+          `
+          @import "@/styles/variables.scss";  // scss文件地址
+          @import "@/styles/mixin.scss";     // scss文件地址
+        `
+      }
+    }
+  },
+  // 配置svg图标
   chainWebpack (config) {
     // 设置 svg-sprite-loader
     // config 为 webpack 配置对象
@@ -61,7 +75,6 @@ module.exports = defineConfig({
     config
       .plugin('ignore')
       .use(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/))
-
     config.module
       .rule('icons')
       .test(/\.svg$/)

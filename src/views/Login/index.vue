@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item prop="password">
         <svg-icon icon="password" class="svg-container" />
-        <el-input v-model="form.password" :type="passwordType" show-password />
+        <el-input v-model="form.password" :type="passwordType" />
         <svg-icon
           :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
           @click="changeType"
@@ -32,6 +32,7 @@ const form = ref({
   password: '123456'
 })
 
+// 表单验证
 const rules = ref({
   username: [
     { required: true, message: 'Please input Activity name', trigger: 'blur' },
@@ -43,11 +44,12 @@ const rules = ref({
   ]
 })
 
+// 登录校验
 const loginForm = ref(null)
 const handleLogin = () => {
   loginForm.value.validate(async (valid) => {
     if (valid) {
-      store.dispatch('app/login', form.value)
+      store.dispatch('app/login', form.value) // 发送actions
     } else {
       console.log('error submit!!')
       return false
@@ -55,6 +57,7 @@ const handleLogin = () => {
   })
 }
 
+// 密码框小眼睛切换
 const passwordType = ref('password')
 const changeType = () => {
   if (passwordType.value === 'password') {
