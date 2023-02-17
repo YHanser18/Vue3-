@@ -85,21 +85,20 @@ $cursor: #fff;
     margin: 0 auto;
     overflow: hidden;
 
-    :deep(.el-form-item) {
+    ::v-deep .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #454545;
     }
 
-    :deep(.el-input) {
+    ::v-deep .el-input {
       display: inline-block;
       height: 47px;
       width: 85%;
 
-      .el-input__wrapper {
+      input {
         background: transparent;
-        box-shadow: 0 0 0 0;
         border: 0px;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
@@ -108,7 +107,6 @@ $cursor: #fff;
         caret-color: $cursor;
       }
     }
-
     .login-button {
       width: 100%;
       box-sizing: border-box;
