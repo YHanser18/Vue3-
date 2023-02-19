@@ -22,7 +22,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const { data, meta } = response.data
-    if (meta.data === 200 || meta.data === 201) {
+    if (meta.status === 200 || meta.status === 201) {
       return data
     } else {
       ElMessage.error(meta.msg)

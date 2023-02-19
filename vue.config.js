@@ -41,10 +41,9 @@ module.exports = defineConfig({
   css: {
     loaderOptions: {
       sass: {
-        prependData:
-          `
-          @import "@/styles/variables.scss";  // scss文件地址
-          @import "@/styles/mixin.scss";     // scss文件地址
+        prependData: `
+          @import "@/styles/variables.scss";
+          @import "@/styles/mixin.scss";
         `
       }
     }
