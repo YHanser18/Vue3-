@@ -1,24 +1,29 @@
 <template>
   <el-menu
-    default-active="2"
+    :default-active="defaultActive"
     text-color="#fff"
     active-text-color="#ffd04b"
     background-color="#545c64"
     class="el-menu-vertical-demo"
     router
+    unique-opened
   >
-    <el-sub-menu v-for="(item) in menus" :key="item.id" :index="item.id">
+    <el-sub-menu v-for="(item,index) in menus" :key="item.id" :index="item.id">
       <template #title>
-        <el-icon>
-          <location />
-        </el-icon>
+        <component :is="iconList[index]"></component>
         <span>{{ item.authName }}</span>
       </template>
       <el-menu-item
         :index="'/' + subItem.path"
         v-for="(subItem) in item.children"
         :key="subItem.id"
-      >{{ subItem.authName }}</el-menu-item>
+        @click="savePath(subItem.path)"
+      >
+        <template #title>
+          <component :is="icon"></component>
+          <span>{{ subItem.authName }}</span>
+        </template>
+      </el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>
@@ -28,12 +33,20 @@ import { menuList } from '@/api/menu'
 import { ref } from 'vue'
 // import variables from '@/styles/variables.scss'
 
+const iconList = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart'])
+const icon = ref('menu')
+
 const menus = ref([])
 const inintMenuList = async () => {
   menus.value = await menuList() // 获取菜单列表
 }
-inintMenuList()
+inintMenuList() // 初始化菜单栏
 
+// 获取sessionStorage内的路径
+const defaultActive = ref(sessionStorage.getItem('path') || '/users')
+const savePath = (path) => {
+  sessionStorage.setItem('path', `${path}`)
+}
 </script>
 
 <style lang="scss" scoped>
