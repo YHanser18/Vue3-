@@ -13,6 +13,7 @@ export default {
     }
   },
   actions: {
+    // 登录
     login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         loginApi(userInfo).then(res => {
@@ -23,7 +24,12 @@ export default {
           resolve()
         }).catch(err => reject(err))
       })
+    },
+    // 退出
+    logout ({ commit }) {
+      commit('setToken', '')
+      localStorage.clear()
+      router.replace('/login')
     }
-
   }
 }

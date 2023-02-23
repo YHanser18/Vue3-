@@ -50,4 +50,15 @@ const savePath = (path) => {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-sub-menu__title svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+::v-deep .el-menu-item svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
 </style>
