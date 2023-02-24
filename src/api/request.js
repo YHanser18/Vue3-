@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     if (localStorage.getItem('token')) {
-      // 当token失效
+      // 当token失效 跳转到登录页面
       if (diffTokenTime()) {
         store.dispatch('app/logout')
         return Promise.reject(new Error('token 过期'))

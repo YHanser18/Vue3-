@@ -1,10 +1,12 @@
-import { login as loginApi } from '@/api/login'
 import router from '@/router'
+import { login as loginApi } from '@/api/login'
+import { setTokenTime } from '@/utils/auth'
 
 export default {
   namespaced: true,
   state: () => ({
-    token: localStorage.getItem('token') || '' // 获取token
+    token: localStorage.getItem('token') || '', // 获取token
+    siderType: true // 导航栏图标样式
   }),
   mutations: {
     setToken (state, token) {
@@ -19,6 +21,7 @@ export default {
         loginApi(userInfo).then(res => {
           console.log(res)
           commit('setToken', res.token)
+          setTokenTime()
           // 若token存在跳转至登录页
           router.replace('/')
           resolve()
