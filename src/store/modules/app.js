@@ -6,12 +6,19 @@ export default {
   namespaced: true,
   state: () => ({
     token: localStorage.getItem('token') || '', // 获取token
-    siderType: true // 导航栏图标样式
+    lang: localStorage.getItem('lang') || 'zh', // 设置语言
+    sideBarType: true // 导航栏图标样式
   }),
   mutations: {
     setToken (state, token) {
       state.token = token
       localStorage.setItem('token', token)
+    },
+    changeSideBarType (state) {
+      state.sideBarType = !state.sideBarType
+    },
+    changeLang (state, lang) {
+      state.lang = lang
     }
   },
   actions: {
@@ -19,11 +26,11 @@ export default {
     login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         loginApi(userInfo).then(res => {
-          console.log(res)
+          // console.log(res)
           commit('setToken', res.token)
+
           setTokenTime()
-          // 若token存在跳转至登录页
-          router.replace('/')
+          router.replace('/') // 必须登录后才能访问首页
           resolve()
         }).catch(err => reject(err))
       })

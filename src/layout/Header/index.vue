@@ -1,11 +1,19 @@
 <template>
-  <div class="navbar"></div>
-  <Hanburger />
+  <div class="navbar">
+    <Hanburger />
+    <Breadcrumb />
+    <div class="navbar-right">
+      <Lang class="navbar-item" />
+      <Avatar class="navbar-item" />
+    </div>
+  </div>
 </template>
 
 <script setup>
 import Hanburger from './components/Hanburger'
-
+import Breadcrumb from './components/Breadcrumb'
+import Avatar from './components/Avatar'
+import Lang from './components/Lang'
 </script>
 
 <style lang="scss" scoped>
@@ -20,11 +28,14 @@ import Hanburger from './components/Hanburger'
   align-items: center;
   box-sizing: border-box;
   position: relative;
+
   .navbar-right {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    cursor: pointer;
+
     :deep(.navbar-item) {
       display: inline-block;
       margin-left: 18px;

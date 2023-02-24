@@ -5,12 +5,15 @@
     active-text-color="#ffd04b"
     background-color="#545c64"
     class="el-menu-vertical-demo"
+    :collapse="!$store.getters.sideBarType"
     router
     unique-opened
   >
     <el-sub-menu v-for="(item,index) in menus" :key="item.id" :index="item.id">
       <template #title>
-        <component :is="iconList[index]"></component>
+        <el-icon>
+          <component :is="iconList[index]"></component>
+        </el-icon>
         <span>{{ item.authName }}</span>
       </template>
       <el-menu-item
@@ -20,8 +23,10 @@
         @click="savePath(subItem.path)"
       >
         <template #title>
-          <component :is="icon"></component>
-          <span>{{ subItem.authName }}</span>
+          <el-icon>
+            <component :is="icon"></component>
+          </el-icon>
+          <span>{{ $t(`menus.${subItem.path}`) }}</span>
         </template>
       </el-menu-item>
     </el-sub-menu>
@@ -53,12 +58,10 @@ const savePath = (path) => {
 ::v-deep .el-sub-menu__title svg {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
 }
 
 ::v-deep .el-menu-item svg {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
 }
 </style>

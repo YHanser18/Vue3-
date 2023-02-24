@@ -3,7 +3,7 @@
     <el-aside :width="asideWidth" class="sidebar-container">
       <Menu />
     </el-aside>
-    <el-container class="container">
+    <el-container :class="{ hidderContainer: !$store.getters.sideBarType }" class="container">
       <el-header>
         <Header />
       </el-header>
@@ -17,10 +17,15 @@
 <script setup>
 import Menu from './Menu'
 import Header from './Header'
-import variables from '@/styles/variables.scss'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+// import variables from '@/styles/variables.scss'
 
-const asideWidth = ref(variables.sideBarWidth)
+const store = useStore()
+const asideWidth = computed(() => {
+  // 左侧导航栏宽度变化
+  return store.getters.sideBarType ? '300px' : '67px'
+})
 </script>
 
 <style lang="scss" scoped>

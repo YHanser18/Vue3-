@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form :model="form" :rules="rules" ref="loginForm" class="login-form">
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('login.title') }}</h3>
       </div>
       <el-form-item prop="username">
         <svg-icon icon="user" class="svg-container" />
@@ -17,7 +17,7 @@
           class="svg-container"
         />
       </el-form-item>
-      <el-button type="primary" @click="handleLogin" class="login-button">登录</el-button>
+      <el-button type="primary" @click="handleLogin" class="login-button">{{ $t('login.btnTitle') }}</el-button>
     </el-form>
   </div>
 </template>
@@ -51,7 +51,7 @@ const handleLogin = () => {
     if (valid) {
       store.dispatch('app/login', form.value) // 发送actions
     } else {
-      console.log('error submit!!')
+      console.log('error submit!')
       return false
     }
   })

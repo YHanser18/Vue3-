@@ -12,7 +12,7 @@ export const getTokenTime = () => {
 
 // 是否已经过期
 export const diffTokenTime = () => {
-  const currentToken = Date.now()
+  const currentTime = Date.now()
   const tokenTime = getTokenTime()
-  return currentToken - tokenTime > TOKEN_TIME_VALUE
+  return currentTime - tokenTime > TOKEN_TIME_VALUE
 }

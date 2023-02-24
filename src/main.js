@@ -3,8 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import * as ELIcon from '@element-plus/icons-vue' // element-plus icons
+import i18n from '@/i18n' // 中英切换
 import SvgIcon from '@/icons/index' // icon图标
+import * as ELIcon from '@element-plus/icons-vue' // element-plus icons
 import 'element-plus/dist/index.css' // element-plus css
 import '@/styles/index.scss' // 默认样式
 import '@/router/permission' // token验证
@@ -15,4 +16,5 @@ for (const iconName in ELIcon) {
 }
 SvgIcon(app)
 
+app.use(i18n)
 app.use(store).use(router).mount('#app')
