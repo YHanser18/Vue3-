@@ -38,8 +38,9 @@ export default {
     closeBtnText: 'close',
     nextBtnText: 'next',
     prevBtnText: 'prev',
-    guideBtn: 'guidebtn',
-    hamburgerBtn: 'hamburgerBtn',
-    fullScreen: 'fullScreen'
+    guideBtn: 'Guide Button',
+    hamburgerBtn: 'Hamburger Button',
+    fullScreen: 'FullScreen',
+    language: 'Language Switch'
   }
 }

@@ -60,11 +60,7 @@ const handleLogin = () => {
 // 密码框小眼睛切换
 const passwordType = ref('password')
 const changeType = () => {
-  if (passwordType.value === 'password') {
-    passwordType.value = 'text'
-  } else {
-    passwordType.value = 'password'
-  }
+  passwordType.value === 'password' ? (passwordType.value = 'text') : (passwordType.value = 'password')
 }
 </script>
 

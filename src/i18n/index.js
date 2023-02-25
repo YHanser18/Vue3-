@@ -20,8 +20,8 @@ const getCurrentLanguage = () => {
 }
 
 const i18n = createI18n({
-  legacy: false,
-  globalInjection: true, // 全局函数
+  legacy: false, // 使用composition API模式 需要设置为false
+  globalInjection: true, // 全局注入$t函数
   locale: getCurrentLanguage() || 'zh', // 语言
   messages: message
 })

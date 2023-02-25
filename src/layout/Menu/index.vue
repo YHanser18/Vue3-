@@ -1,4 +1,5 @@
 <template>
+  <!-- 左侧导航栏 -->
   <el-menu
     :default-active="defaultActive"
     text-color="#fff"
@@ -43,6 +44,7 @@ const icon = ref('menu')
 
 const menus = ref([])
 const inintMenuList = async () => {
+  // console.log(menus.value)
   menus.value = await menuList() // 获取菜单列表
 }
 inintMenuList() // 初始化菜单栏

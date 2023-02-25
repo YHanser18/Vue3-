@@ -23,8 +23,7 @@ import { useStore } from 'vuex'
 
 const store = useStore()
 const asideWidth = computed(() => {
-  // 左侧导航栏宽度变化
-  return store.getters.sideBarType ? '300px' : '67px'
+  return store.getters.sideBarType ? '300px' : '67px' // 左侧导航栏宽度变化
 })
 </script>
 

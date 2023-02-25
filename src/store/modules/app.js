@@ -6,8 +6,8 @@ export default {
   namespaced: true,
   state: () => ({
     token: localStorage.getItem('token') || '', // 获取token
-    lang: localStorage.getItem('lang') || 'zh', // 设置语言
-    sideBarType: true // 导航栏图标样式
+    sideBarType: true, // 导航栏图标样式
+    lang: localStorage.getItem('lang') || 'zh' // 设置语言
   }),
   mutations: {
     setToken (state, token) {
