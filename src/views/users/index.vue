@@ -3,7 +3,12 @@
     <!-- 搜索用户与添加用户 -->
     <el-row :gutter="20">
       <el-col :span="7">
-        <el-input :placeholder="$t('table.placeholder')" type="text" v-model="queryForm.query"></el-input>
+        <el-input
+          :placeholder="$t('table.placeholder')"
+          v-model="queryForm.query"
+          clearable
+          type="text"
+        ></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initGetUserList">{{ $t('table.search') }}</el-button>
       <el-button type="primary" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
@@ -20,7 +25,6 @@
         <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
           <el-switch v-model="row.mg_state" @change="changeUserState(row)" />
         </template>
-
         <template
           v-slot="{ row }"
           v-else-if="item.prop === 'create_time'"
