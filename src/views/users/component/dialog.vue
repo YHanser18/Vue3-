@@ -1,28 +1,27 @@
 <template>
-  <el-dialog
-    :model-value="dialogVisible"
-    :title="dialogTitle"
-    width="30%"
-    @close="handleClose"
-  >
-    <el-form :model="form" label-width="70px" ref="formRef" :rules="rules">
+  <el-dialog :model-value="dialogVisible" :title="dialogTitle" @close="handleClose" width="45%">
+    <el-form
+      ref="dialogForm"
+      :model="form"
+      :rules="rules"
+      :inline="true"
+      :label-position="labelPosition"
+      label-width="80px"
+    >
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" />
+        <el-input v-model="form.username" placeholder="请输入姓名" />
       </el-form-item>
-      <el-form-item
-        label="密码"
-        prop="password"
-        v-if="dialogTitle === '添加用户'"
-      >
-        <el-input v-model="form.password" type="password" />
+      <el-form-item label="密码" prop="password" v-if="dialogTitle ==='添加用户'">
+        <el-input v-model="form.password" placeholder="请输入密码" />
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email" />
+        <el-input v-model="form.email" placeholder="请输入邮箱" />
       </el-form-item>
       <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="form.mobile" />
+        <el-input v-model="form.mobile" placeholder="请输入手机号" />
       </el-form-item>
     </el-form>
+
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleClose">取消</el-button>
@@ -33,18 +32,21 @@
 </template>
 
 <script setup>
-import { defineEmits, ref, defineProps, watch } from 'vue'
 import { addUser, editUser } from '@/api/user'
+import { defineEmits, ref, defineProps, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import i18n from '@/i18n'
+
 const emits = defineEmits(['update:modelValue', 'initUserList'])
-const formRef = ref(null)
+const labelPosition = ref('right')
+const dialogForm = ref(null)
 const form = ref({
   username: '',
   password: '',
   email: '',
   mobile: ''
 })
+
 const props = defineProps({
   dialogTitle: {
     type: String,
@@ -53,36 +55,31 @@ const props = defineProps({
   },
   dialogTableVal: {
     type: Object,
-    // default: {} 此处会报错 因为vue规定，对象或数组默认值必须从一个工厂函数获取
-    default: function () {
-      return {}
-    }
+    default: () => { }
   }
 })
 
-watch(
-  () => props.dialogTableVal,
-  () => {
-    form.value = props.dialogTableVal
-  },
-  { deep: true, immediate: true }
-)
+// 监听标题
+watch(() => props.dialogTableVal, () => {
+  form.value = props.dialogTableVal
+}, { deep: true, immediate: true })
 
+// 关闭弹窗
 const handleClose = () => {
   emits('update:modelValue', false)
 }
 
 const handleConfirm = () => {
-  formRef.value.validate(async (valid) => {
+  // 提交时验证
+  dialogForm.value.validate(async valid => {
     if (valid) {
-      props.dialogTitle === '添加用户'
-        ? await addUser(form.value)
-        : await editUser(form.value)
+      // 判断是添加用户还是编辑用户
+      props.dialogTitle === '添加用户' ? await addUser(form.value) : await editUser(form.value)
       ElMessage({
         message: i18n.global.t('message.updeteSuccess'),
         type: 'success'
       })
-      emits('initUserList')
+      emits('initUserList') // 子传父
       handleClose()
     } else {
       console.log('error submit!!')
@@ -91,44 +88,28 @@ const handleConfirm = () => {
   })
 }
 
+// 表单校验
 const rules = ref({
   username: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'blur'
-    }
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { min: 2, max: 9, message: '长度在 2 到 9 个字符之间', trigger: 'blur' }
   ],
   password: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'blur'
-    }
+    { required: true, message: '请输入密码', trigger: 'blur' }
   ],
   email: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'blur'
-    },
-    {
-      type: 'email',
-      message: '请输入正确的邮箱地址',
-      trigger: ['blur', 'change']
-    }
+    { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
   ],
   mobile: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'blur'
-    },
-    {
-      pattern: '^1[3578]\\d{9}$'
-    }
+    { required: true, message: '请输入手机号', trigger: 'blur' }
+    // { pattern: '^1[3578]\\d{9}$' }
   ]
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+::v-deep .el-form-item {
+  margin: 15px 15px;
+}
+</style>

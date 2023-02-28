@@ -1,11 +1,7 @@
 import request from './request'
 
-export const getUser = (params) => {
-  return request({
-    url: '/users',
-    params
-  })
-}
+// 请求用户列表
+export const getUser = (params) => request({ url: '/users', params })
 
 // 请求用户状态
 export const getUserState = (uid, type) => request.put(`users/${uid}/state/${type}`)

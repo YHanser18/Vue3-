@@ -1,5 +1,6 @@
 <template>
   <el-card>
+    <!-- 搜索用户与添加用户 -->
     <el-row :gutter="20">
       <el-col :span="7">
         <el-input :placeholder="$t('table.placeholder')" type="text" v-model="queryForm.query"></el-input>
@@ -8,6 +9,7 @@
       <el-button type="primary" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
     </el-row>
 
+    <!-- 用户表格展示 -->
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column
         v-for="(item, index) in options"
@@ -32,62 +34,64 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页器 -->
     <el-pagination
-      v-model:currentPage="queryForm.pagenum"
-      :page-sizes="[2, 5, 10, 15]"
-      :page-size="queryForm.pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
+      v-model:current-page="queryForm.pagenum"
+      v-model:page-size="queryForm.pagesize"
+      :page-sizes="[5, 15, 20, 30]"
       :total="total"
+      layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      @initUserList="initGetUserList"
     />
   </el-card>
 
+  <!-- 弹窗对话框 -->
   <Dialog
     v-model="dialogVisible"
     :dialogTitle="dialogTitle"
-    v-if="dialogVisible"
     :dialogTableVal="dialogTableVal"
+    @initUserList="initGetUserList"
+    v-if="dialogVisible"
   />
 </template>
 
 <script setup>
-import { Search, Edit, Delete, Setting } from '@element-plus/icons-vue'
-import { getUser, getUserState, deleteUser } from '@/api/user.js'
+import Dialog from './component/Dialog'
 import { ref } from 'vue'
-import { options } from './options'
+import { isNull } from '@/utils/filters'
+import { getUser, getUserState, deleteUser } from '@/api/user.js'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Search, Edit, Delete, Setting } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
-import Dialog from './component/dialog.vue'
-// import isNull from '@/util/filters'
 const i18n = useI18n()
+
 const queryForm = ref({
   query: '',
   pagenum: 1,
-  pagesize: 2
+  pagesize: 5
 })
-const total = ref(0)
-const tableData = ref([])
-const dialogVisible = ref(false)
-const dialogTitle = ref('')
-const dialogTableVal = ref({})
+const total = ref(0) // 分页总数
+const tableData = ref([]) // 表格数据
+
+const dialogVisible = ref(false) // 弹窗显示
+const dialogTitle = ref('') // 弹窗标题
+const dialogTableVal = ref({}) // 弹窗标题
 
 const initGetUserList = async () => {
   const res = await getUser(queryForm.value)
-  // console.log(res)
   total.value = res.total
   tableData.value = res.users
 }
 initGetUserList()
 
-const handleSizeChange = (pageSize) => {
+// 页码的改变事件
+const handleSizeChange = pageSize => {
   queryForm.value.pagenum = 1
   queryForm.value.pagesize = pageSize
-  initGetUserList()
+  initGetUserList() // 更改后刷新数据
 }
-
-const handleCurrentChange = (pageNum) => {
+const handleCurrentChange = pageNum => {
   queryForm.value.pagenum = pageNum
   initGetUserList()
 }
@@ -96,20 +100,11 @@ const handleCurrentChange = (pageNum) => {
 const changeUserState = async (info) => {
   await getUserState(info.id, info.mg_state)
   ElMessage({
-    message: i18n.t('message.updeteSuccess'),
-    type: 'success'
+    type: 'success', message: i18n.t('message.updeteSuccess')
   })
 }
 
-// 因为莫名的报错 就直接先把filter.js的判空方法直接先粘贴过来了 然后就不报错了
-// 之前是将文件导入用里面的isnull 但一直提示一个全局变量报错
-const isNull = (obj) => {
-  if (!obj) return true
-  if (JSON.stringify(obj) === '{}') return true
-  if (JSON.stringify(obj) === '[]') return true
-}
-
-// 更新是否显示对话框
+// 弹出对话框
 const handleDialogValue = (row) => {
   if (isNull(row)) {
     dialogTitle.value = '添加用户'
@@ -118,39 +113,51 @@ const handleDialogValue = (row) => {
     dialogTitle.value = '编辑用户'
     dialogTableVal.value = JSON.parse(JSON.stringify(row))
   }
-  dialogVisible.value = true
+  dialogVisible.value = true // 关闭弹窗
 }
 
-// 删除
+// 删除用户
 const delUser = (row) => {
   ElMessageBox.confirm(i18n.t('dialog.deleteTitle'), 'Warning', {
-    confirmButtonText: 'OK',
-    cancelButtonText: 'Cancel',
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
     type: 'warning'
+  }).then(async () => {
+    await deleteUser(row.id)
+    ElMessage({
+      type: 'success', message: '删除成功'
+    })
+    initGetUserList() // 删除后刷新数据
+  }).catch(() => {
+    ElMessage({
+      type: 'info', message: '删除失败'
+    })
   })
-    .then(async () => {
-      await deleteUser(row.id)
-      ElMessage({
-        type: 'success',
-        message: 'Delete completed'
-      })
-      initGetUserList()
-    })
-    .catch(() => {
-      ElMessage({
-        type: 'info',
-        message: 'Delete canceled'
-      })
-    })
 }
+
+// 表格选项
+const options = [
+  { label: 'username', prop: 'username' },
+  { label: 'email', prop: 'email' },
+  { label: 'mobile', prop: 'mobile' },
+  { label: 'role_name', prop: 'role_name' },
+  { label: 'mg_state', prop: 'mg_state' },
+  { label: 'create_time', prop: 'create_time' },
+  { label: 'action', prop: 'action' }
+]
 </script>
 
 <style lang="scss" scoped>
+.header {
+  padding-bottom: 16px;
+  box-sizing: border-box;
+}
+
 .el-pagination {
   margin-top: 20px;
-  // justify-content: center; //居中
-  //float: left;居左
   float: right; //居右
+  //float: left;居左
+  // justify-content: center; //居中
 }
 :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
   background-color: #ff9800 !important; //修改默认的背景色
