@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import Dialog from './component/Dialog'
+import Dialog from './components/Dialog'
 import { ref } from 'vue'
 import { isNull } from '@/utils/filters'
 import { getUser, getUserState, deleteUser } from '@/api/user.js'
@@ -157,8 +157,11 @@ const options = [
   box-sizing: border-box;
 }
 
+::v-deep .el-table--fit {
+  margin: 30px 0;
+}
+
 .el-pagination {
-  margin-top: 20px;
   float: right; //居右
   //float: left;居左
   // justify-content: center; //居中

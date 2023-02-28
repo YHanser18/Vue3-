@@ -5,6 +5,7 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
+        <el-dropdown-item @click="profile">个人中心</el-dropdown-item>
         <el-dropdown-item @click="logout">退出</el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -12,6 +13,7 @@
 </template>
 
 <script setup>
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
@@ -20,6 +22,10 @@ const squareUrl = ref('https://img2.baidu.com/it/u=864800148,863255913&fm=253&fm
 // 退出登录
 const logout = () => {
   store.dispatch('app/logout')
+}
+
+const profile = () => {
+  ElMessage.error('尚未开发')
 }
 </script>
 

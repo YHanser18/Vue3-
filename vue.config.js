@@ -26,12 +26,12 @@ module.exports = {
   configureWebpack: (config) => {
     config.plugins.push(
       AutoImport({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver({ importStyle: false })]
       })
     )
     config.plugins.push(
       Components({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver({ importStyle: false })]
       })
     )
   },
