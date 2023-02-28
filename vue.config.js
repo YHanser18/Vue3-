@@ -1,7 +1,6 @@
-const { defineConfig } = require('@vue/cli-service')
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -9,8 +8,7 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-module.exports = defineConfig({
-  transpileDependencies: true,
+module.exports = {
   lintOnSave: false, // 关闭eslint校验
   // 配置代理跨域
   devServer: {
@@ -28,12 +26,12 @@ module.exports = defineConfig({
   configureWebpack: (config) => {
     config.plugins.push(
       AutoImport({
-        resolvers: [ElementPlusResolver({ importStyle: false })]
+        resolvers: [ElementPlusResolver()]
       })
     )
     config.plugins.push(
       Components({
-        resolvers: [ElementPlusResolver({ importStyle: false })]
+        resolvers: [ElementPlusResolver()]
       })
     )
   },
@@ -85,4 +83,4 @@ module.exports = defineConfig({
       })
       .end()
   }
-})
+}
