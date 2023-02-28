@@ -16,7 +16,7 @@ service.interceptors.request.use(
       // 当token失效 跳转到登录页面
       if (diffTokenTime()) {
         store.dispatch('app/logout')
-        return Promise.reject(new Error('token 过期'))
+        return Promise.reject(new Error('token已过期'))
       }
     }
     // 为每一个接口添加上token信息

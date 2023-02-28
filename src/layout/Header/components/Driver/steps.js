@@ -3,7 +3,7 @@ export const steps = (i18n) => [
     element: '#guide', // 绑定元素
     popover: {
       title: i18n('driver.guideBtn'),
-description: 'hello world',
+      description: 'hello world',
       position: 'left' // 出现的方向
     }
   },

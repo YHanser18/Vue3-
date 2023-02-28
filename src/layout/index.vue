@@ -19,7 +19,6 @@ import Menu from './Menu'
 import Header from './Header'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-// import variables from '@/styles/variables.scss'
 
 const store = useStore()
 const asideWidth = computed(() => {

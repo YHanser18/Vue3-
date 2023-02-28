@@ -28,12 +28,12 @@ module.exports = defineConfig({
   configureWebpack: (config) => {
     config.plugins.push(
       AutoImport({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver({ importStyle: false })]
       })
     )
     config.plugins.push(
       Components({
-        resolvers: [ElementPlusResolver()]
+        resolvers: [ElementPlusResolver({ importStyle: false })]
       })
     )
   },
@@ -70,7 +70,6 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]' // loader 的配置
       })
       .end() // 结束
-
     config
       .plugin('ignore')
       .use(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/))

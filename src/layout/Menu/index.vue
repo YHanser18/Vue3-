@@ -12,7 +12,7 @@
   >
     <el-sub-menu v-for="(item,index) in menus" :key="item.id" :index="item.id">
       <template #title>
-        <el-icon>
+        <el-icon :size="20">
           <component :is="iconList[index]"></component>
         </el-icon>
         <span>{{ item.authName }}</span>
@@ -24,7 +24,7 @@
         @click="savePath(subItem.path)"
       >
         <template #title>
-          <el-icon>
+          <el-icon :size="20">
             <component :is="icon"></component>
           </el-icon>
           <span>{{ $t(`menus.${subItem.path}`) }}</span>
@@ -37,14 +37,12 @@
 <script setup>
 import { menuList } from '@/api/menu'
 import { ref } from 'vue'
-// import variables from '@/styles/variables.scss'
 
 const iconList = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart'])
 const icon = ref('menu')
 
 const menus = ref([])
 const inintMenuList = async () => {
-  // console.log(menus.value)
   menus.value = await menuList() // 获取菜单列表
 }
 inintMenuList() // 初始化菜单栏
@@ -57,13 +55,4 @@ const savePath = (path) => {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-sub-menu__title svg {
-  width: 20px;
-  height: 20px;
-}
-
-::v-deep .el-menu-item svg {
-  width: 20px;
-  height: 20px;
-}
 </style>

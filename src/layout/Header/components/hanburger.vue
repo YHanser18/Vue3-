@@ -9,11 +9,11 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 
-// 头部导航栏 按钮切换
 const toggleClick = () => {
   store.commit('app/changeSideBarType')
 }
 
+// 头部导航栏 按钮切换
 const icon = computed(() => {
   return store.getters.sideBarType ? 'hamburger-opened' : 'hamburger-closed'
 })
