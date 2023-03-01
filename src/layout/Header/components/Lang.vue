@@ -3,7 +3,7 @@
     <svg-icon icon="language"></svg-icon>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="zh" :disabled="currentLanguage === 'zh'">中文</el-dropdown-item>
+        <el-dropdown-item command="zh" :disabled="currentLanguage === 'zh'">简体中文</el-dropdown-item>
         <el-dropdown-item command="en" :disabled="currentLanguage === 'en'">English</el-dropdown-item>
       </el-dropdown-menu>
     </template>

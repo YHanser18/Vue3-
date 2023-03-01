@@ -10,8 +10,8 @@
           type="text"
         ></el-input>
       </el-col>
-      <el-button type="primary" :icon="Search" @click="initGetUserList">{{ $t('table.search') }}</el-button>
-      <el-button type="primary" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
+      <el-button type="primary" :icon="Search" @click="initGetUser">{{ $t('table.search') }}</el-button>
+      <el-button type="primary" :icon="Plus" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
     </el-row>
 
     <!-- 用户表格展示 -->
@@ -32,7 +32,7 @@
 
         <template #default="{ row }" v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
-          <el-button type="warning" size="small" :icon="Setting" />
+          <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
           <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
         </template>
       </el-table-column>
@@ -55,7 +55,7 @@
     v-model="dialogVisible"
     :dialogTitle="dialogTitle"
     :dialogTableVal="dialogTableVal"
-    @initUserList="initGetUserList"
+    @initUserList="initGetUser"
     v-if="dialogVisible"
   />
 </template>
@@ -66,7 +66,7 @@ import { ref } from 'vue'
 import { isNull } from '@/utils/filters'
 import { getUser, getUserState, deleteUser } from '@/api/user.js'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search, Edit, Delete, Setting } from '@element-plus/icons-vue'
+import { Search, Edit, Delete, Setting, Plus } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n()
 
@@ -82,22 +82,22 @@ const dialogVisible = ref(false) // 弹窗显示
 const dialogTitle = ref('') // 弹窗标题
 const dialogTableVal = ref({}) // 弹窗标题
 
-const initGetUserList = async () => {
+const initGetUser = async () => {
   const res = await getUser(queryForm.value)
   total.value = res.total
   tableData.value = res.users
 }
-initGetUserList()
+initGetUser()
 
 // 页码的改变事件
 const handleSizeChange = pageSize => {
   queryForm.value.pagenum = 1
   queryForm.value.pagesize = pageSize
-  initGetUserList() // 更改后刷新数据
+  initGetUser() // 更改后刷新数据
 }
 const handleCurrentChange = pageNum => {
   queryForm.value.pagenum = pageNum
-  initGetUserList()
+  initGetUser()
 }
 
 // 更新开关状态
@@ -111,10 +111,10 @@ const changeUserState = async (info) => {
 // 弹出对话框
 const handleDialogValue = (row) => {
   if (isNull(row)) {
-    dialogTitle.value = '添加用户'
+    dialogTitle.value = i18n.t('dialog.addUser')
     dialogTableVal.value = {}
   } else {
-    dialogTitle.value = '编辑用户'
+    dialogTitle.value = i18n.t('dialog.editUser')
     dialogTableVal.value = JSON.parse(JSON.stringify(row))
   }
   dialogVisible.value = true // 关闭弹窗
@@ -123,20 +123,24 @@ const handleDialogValue = (row) => {
 // 删除用户
 const delUser = (row) => {
   ElMessageBox.confirm(i18n.t('dialog.deleteTitle'), 'Warning', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+    confirmButtonText: i18n.t('button.confirm'),
+    cancelButtonText: i18n.t('button.cancel'),
     type: 'warning'
   }).then(async () => {
     await deleteUser(row.id)
     ElMessage({
-      type: 'success', message: '删除成功'
+      type: 'success', message: i18n.t('message.deletedSuccess')
     })
-    initGetUserList() // 删除后刷新数据
+    initGetUser() // 删除后刷新数据
   }).catch(() => {
     ElMessage({
-      type: 'info', message: '删除失败'
+      type: 'info', message: i18n.t('message.deletedFailure')
     })
   })
+}
+
+const handleSet = () => {
+  ElMessage.error('尚未开发')
 }
 
 // 表格选项

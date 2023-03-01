@@ -15,12 +15,12 @@
         <el-icon :size="20">
           <component :is="iconList[index]"></component>
         </el-icon>
-        <span>{{ item.authName }}</span>
+        <span>{{ $t(`mainMenu.${item.order }`) }}</span>
       </template>
       <el-menu-item
-        :index="'/' + subItem.path"
         v-for="(subItem) in item.children"
         :key="subItem.id"
+        :index="'/' + subItem.path"
         @click="savePath(subItem.path)"
       >
         <template #title>
@@ -55,4 +55,7 @@ const savePath = (path) => {
 </script>
 
 <style lang="scss" scoped>
+// ::v-deep .el-menu {
+//   background: #1f2d3d!important;
+// }
 </style>

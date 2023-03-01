@@ -1,31 +1,39 @@
 <template>
   <el-dialog :model-value="dialogVisible" :title="dialogTitle" @close="handleClose" width="45%">
+    <!-- 新增  修改用户的表单验证 -->
     <el-form
       ref="dialogForm"
       :model="form"
       :rules="rules"
       :inline="true"
       :label-position="labelPosition"
-      label-width="80px"
+      label-width="85px"
     >
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" placeholder="请输入姓名" />
+      <el-form-item prop="username" :label="$t('form.name')">
+        <el-input v-model="form.username" :placeholder="$t('form.nameInput')" />
       </el-form-item>
-      <el-form-item label="密码" prop="password" v-if="dialogTitle ==='添加用户'">
-        <el-input v-model="form.password" placeholder="请输入密码" />
+
+      <!-- 选择编辑用户时 不显示密码框 -->
+      <el-form-item
+        prop="password"
+        :label="$t('form.password')"
+        v-if="dialogTitle === $t('dialog.addUser')"
+      >
+        <el-input v-model="form.password" :placeholder="$t('form.passwordInput')" />
       </el-form-item>
-      <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email" placeholder="请输入邮箱" />
+      <el-form-item prop="email" :label="$t('form.email')">
+        <el-input v-model="form.email" :placeholder="$t('form.emailInput')" />
       </el-form-item>
-      <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="form.mobile" placeholder="请输入手机号" />
+      <el-form-item prop="mobile" :label="$t('form.mobile')">
+        <el-input v-model="form.mobile" :placeholder="$t('form.mobileInput')" />
       </el-form-item>
     </el-form>
 
+    <!-- 确认 取消按钮 -->
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="handleConfirm">确认</el-button>
+        <el-button @click="handleClose">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="handleConfirm">{{ $t('button.confirm') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -37,6 +45,9 @@ import { defineEmits, ref, defineProps, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import i18n from '@/i18n'
 
+const t = i18n.global.t // 使用全局函数
+
+// 子传父
 const emits = defineEmits(['update:modelValue', 'initUserList'])
 const labelPosition = ref('right')
 const dialogForm = ref(null)
@@ -47,6 +58,7 @@ const form = ref({
   mobile: ''
 })
 
+// 接受父组件的传值
 const props = defineProps({
   dialogTitle: {
     type: String,
@@ -74,9 +86,9 @@ const handleConfirm = () => {
   dialogForm.value.validate(async valid => {
     if (valid) {
       // 判断是添加用户还是编辑用户
-      props.dialogTitle === '添加用户' ? await addUser(form.value) : await editUser(form.value)
+      props.dialogTitle === t('dialog.addUser') ? await addUser(form.value) : await editUser(form.value)
       ElMessage({
-        message: i18n.global.t('message.updeteSuccess'),
+        message: t('message.updeteSuccess'),
         type: 'success'
       })
       emits('initUserList') // 子传父
@@ -91,25 +103,29 @@ const handleConfirm = () => {
 // 表单校验
 const rules = ref({
   username: [
-    { required: true, message: '请输入姓名', trigger: 'blur' },
-    { min: 2, max: 9, message: '长度在 2 到 9 个字符之间', trigger: 'blur' }
+    { required: true, message: t('form.nameInput'), trigger: 'blur' },
+    { min: 2, max: 9, message: t('form.nameRequired'), trigger: 'blur' }
   ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' }
+    { required: true, message: t('form.passwordInput'), trigger: 'blur' }
   ],
   email: [
-    { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+    { required: true, message: t('form.emailInput'), trigger: 'blur' },
+    { type: 'email', message: t('form.emailRequired'), trigger: ['blur', 'change'] }
   ],
   mobile: [
-    { required: true, message: '请输入手机号', trigger: 'blur' }
-    // { pattern: '^1[3578]\\d{9}$' }
+    { required: true, message: t('form.mobileInput'), trigger: 'blur' },
+    { pattern: '^1[3456789]\\d{9}$' }
   ]
 })
 </script>
 
 <style lang="scss" scoped>
 ::v-deep .el-form-item {
-  margin: 15px 15px;
+  margin: 20px 15px;
+}
+
+::v-deep .el-input__inner {
+  width: 210px;
 }
 </style>

@@ -1,4 +1,4 @@
-# vue3.2-management-system
+# Vue3 商城管理系统
 
 ## Project setup
 
