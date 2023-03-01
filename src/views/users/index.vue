@@ -15,7 +15,7 @@
     </el-row>
 
     <!-- 用户表格展示 -->
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe border style="width: 100%">
       <el-table-column
         v-for="(item, index) in options"
         :prop="item.prop"
