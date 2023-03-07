@@ -2,8 +2,8 @@ import { createI18n } from 'vue-i18n'
 import EN from './en'
 import ZH from './zh'
 
+// 解构出中英文
 const message = {
-  // 解构出中英文
   en: {
     ...EN
   },

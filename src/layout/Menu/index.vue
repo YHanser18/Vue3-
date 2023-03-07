@@ -1,5 +1,5 @@
 <template>
-  <!-- 左侧导航栏 -->
+  <!-- 左侧菜单栏 -->
   <el-menu
     :default-active="defaultActive"
     text-color="#fff"
@@ -10,6 +10,7 @@
     router
     unique-opened
   >
+    <!-- 主菜单 -->
     <el-sub-menu v-for="(item,index) in menus" :key="item.id" :index="item.id">
       <template #title>
         <el-icon :size="20">
@@ -17,8 +18,10 @@
         </el-icon>
         <span>{{ $t(`mainMenu.${item.order }`) }}</span>
       </template>
+
+      <!-- 二级菜单 -->
       <el-menu-item
-        v-for="(subItem) in item.children"
+        v-for="subItem in item.children"
         :key="subItem.id"
         :index="'/' + subItem.path"
         @click="savePath(subItem.path)"

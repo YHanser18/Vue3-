@@ -1,4 +1,5 @@
 <template>
+  <!-- 中英文切换 -->
   <el-dropdown @command="handleCommand" id="language">
     <svg-icon icon="language"></svg-icon>
     <template #dropdown>

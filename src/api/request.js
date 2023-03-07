@@ -19,7 +19,7 @@ service.interceptors.request.use(
         return Promise.reject(new Error('token已过期'))
       }
     }
-    // 为每一个接口添加上token信息
+    // 为请求头对象，添加token验证的Authorization
     config.headers.Authorization = localStorage.getItem('token')
     return config
   },

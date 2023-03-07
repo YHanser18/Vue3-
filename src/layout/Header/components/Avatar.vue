@@ -1,10 +1,12 @@
 <template>
+  <!-- 个人中心 -->
   <el-dropdown>
     <span class="el-dropdown-link">
-      <el-avatar shape="square" :size="40" :src="squareUrl" :key="squareUrl"></el-avatar>
+      <el-avatar shape="square" :size="40" :src="squareUrl" :key="squareUrl" />
     </span>
     <template #dropdown>
       <el-dropdown-menu>
+        <!-- 个人中心/退出 -->
         <el-dropdown-item @click="profile">{{ $t('login.personalCenter') }}</el-dropdown-item>
         <el-dropdown-item @click="logout">{{ $t('login.exit') }}</el-dropdown-item>
       </el-dropdown-menu>

@@ -33,6 +33,12 @@ export default {
     editUser: 'Edit User',
     deleteTitle: 'Are you sure you want to delete the user '
   },
+  // 弹窗信息
+  message: {
+    updeteSuccess: 'Update Successfully',
+    deletedSuccess: 'Deleted Successfully',
+    deletedFailure: 'Deleted Failure'
+  },
   // 用户表格
   table: {
     username: 'Username',
@@ -45,12 +51,6 @@ export default {
     search: 'Search',
     adduser: 'Add User',
     placeholder: 'Please enter a user name to search for'
-  },
-  // 弹窗信息
-  message: {
-    updeteSuccess: 'Update Successfully',
-    deletedSuccess: 'Deleted Successfully',
-    deletedFailure: 'Deleted Failure'
   },
   // 引导页
   driver: {

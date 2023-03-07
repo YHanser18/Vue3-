@@ -71,7 +71,7 @@ const props = defineProps({
   }
 })
 
-// 监听标题
+// 监听标题内容
 watch(() => props.dialogTableVal, () => {
   form.value = props.dialogTableVal
 }, { deep: true, immediate: true })

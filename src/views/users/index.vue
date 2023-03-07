@@ -1,8 +1,8 @@
 <template>
   <el-card>
-    <!-- 搜索用户与添加用户 -->
     <el-row :gutter="20">
       <el-col :span="7">
+        <!-- 搜索用户文本框 -->
         <el-input
           :placeholder="$t('table.placeholder')"
           v-model="queryForm.query"
@@ -10,6 +10,7 @@
           type="text"
         ></el-input>
       </el-col>
+      <!-- 搜索用户  添加用户按钮 -->
       <el-button type="primary" :icon="Search" @click="initGetUser">{{ $t('table.search') }}</el-button>
       <el-button type="primary" :icon="Plus" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
     </el-row>
@@ -22,18 +23,21 @@
         :label="$t(`table.${item.label}`)"
         :key="index"
       >
+        <!-- 用户状态 -->
         <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
           <el-switch v-model="row.mg_state" @change="changeUserState(row)" />
         </template>
+        <!-- 创建时间 -->
         <template
           v-slot="{ row }"
           v-else-if="item.prop === 'create_time'"
         >{{ $filters.filterTimes(row.create_time) }}</template>
 
+        <!-- 修改  删除用户按钮 -->
         <template #default="{ row }" v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
-          <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
           <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
+          <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
         </template>
       </el-table-column>
     </el-table>
@@ -131,7 +135,7 @@ const delUser = (row) => {
     ElMessage({
       type: 'success', message: i18n.t('message.deletedSuccess')
     })
-    initGetUser() // 删除后刷新数据
+    initGetUser() // 删除成功后刷新数据
   }).catch(() => {
     ElMessage({
       type: 'info', message: i18n.t('message.deletedFailure')
@@ -143,7 +147,7 @@ const handleSet = () => {
   ElMessage.error('尚未开发')
 }
 
-// 表格选项
+// 表格内容
 const options = [
   { label: 'username', prop: 'username' },
   { label: 'email', prop: 'email' },

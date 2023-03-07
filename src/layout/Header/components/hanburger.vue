@@ -1,4 +1,5 @@
 <template>
+  <!-- 折叠收起菜单按钮 -->
   <div @click="toggleClick" class="hamburger-container" id="hamburger">
     <svg-icon :icon="icon"></svg-icon>
   </div>

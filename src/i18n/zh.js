@@ -33,6 +33,12 @@ export default {
     editUser: '编辑用户',
     deleteTitle: '确定要删除用户'
   },
+  // 弹窗信息
+  message: {
+    updeteSuccess: '更新成功',
+    deletedSuccess: '删除成功',
+    deletedFailure: '删除失败'
+  },
   // 用户表格
   table: {
     username: '姓名',
@@ -45,12 +51,6 @@ export default {
     search: '搜索',
     adduser: '新增用户',
     placeholder: '请输入用户姓名'
-  },
-  // 弹窗信息
-  message: {
-    updeteSuccess: '更新成功',
-    deletedSuccess: '删除成功',
-    deletedFailure: '删除失败'
   },
   // 引导页
   driver: {

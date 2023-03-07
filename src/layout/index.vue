@@ -1,10 +1,12 @@
 <template>
   <el-container class="app-wrapper">
     <el-aside :width="asideWidth" class="sidebar-container">
+      <!-- 左侧菜单栏 -->
       <Menu />
     </el-aside>
     <el-container :class="{ hidderContainer: !$store.getters.sideBarType }" class="container">
       <el-header>
+        <!-- 导航栏 -->
         <Header />
       </el-header>
       <el-main>

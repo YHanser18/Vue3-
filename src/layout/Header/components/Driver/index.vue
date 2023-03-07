@@ -1,4 +1,5 @@
 <template>
+  <!-- 内容指导 -->
   <div @click="handleGuide" id="guide">
     <svg-icon icon="guide"></svg-icon>
   </div>
