@@ -17,6 +17,7 @@
 
     <!-- 用户表格展示 -->
     <el-table :data="tableData" stripe border style="width: 100%">
+      <el-table-column type="index" label="编号"></el-table-column>
       <el-table-column
         v-for="(item, index) in options"
         :prop="item.prop"
@@ -25,7 +26,12 @@
       >
         <!-- 用户状态 -->
         <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
-          <el-switch v-model="row.mg_state" @change="changeUserState(row)" />
+          <el-switch
+            v-model="row.mg_state"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            @change="changeUserState(row)"
+          />
         </template>
         <!-- 创建时间 -->
         <template

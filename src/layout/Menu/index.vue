@@ -1,14 +1,14 @@
 <template>
   <!-- 左侧菜单栏 -->
   <el-menu
-    :default-active="defaultActive"
     text-color="#fff"
     active-text-color="#ffd04b"
     background-color="#545c64"
     class="el-menu-vertical-demo"
-    :collapse="!$store.getters.sideBarType"
     router
     unique-opened
+    :default-active="defaultActive"
+    :collapse="!$store.getters.sideBarType"
   >
     <!-- 主菜单 -->
     <el-sub-menu v-for="(item,index) in menus" :key="item.id" :index="item.id">
@@ -58,7 +58,4 @@ const savePath = (path) => {
 </script>
 
 <style lang="scss" scoped>
-// ::v-deep .el-menu {
-//   background: #1f2d3d!important;
-// }
 </style>

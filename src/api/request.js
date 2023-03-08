@@ -6,7 +6,7 @@ import { diffTokenTime } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // 请求URL公共部分
-  timeout: 5000 // 超时
+  timeout: 3000 // 超时
 })
 
 // 请求拦截器
