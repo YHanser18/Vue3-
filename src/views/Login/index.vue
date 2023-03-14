@@ -4,6 +4,7 @@
       <div class="title-container">
         <h3 class="title">{{ $t('login.title') }}</h3>
       </div>
+
       <el-form-item prop="username">
         <svg-icon icon="user" class="svg-container" />
         <el-input v-model="form.username" />
@@ -47,7 +48,7 @@ const rules = ref({
 // 登录校验
 const loginForm = ref(null)
 const handleLogin = () => {
-  loginForm.value.validate(async (valid) => {
+  loginForm.value.validate(async valid => {
     if (valid) {
       store.dispatch('app/login', form.value) // 发送actions
     } else {

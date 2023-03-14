@@ -4,20 +4,24 @@
       <el-col :span="7">
         <!-- 搜索用户文本框 -->
         <el-input
-          :placeholder="$t('table.placeholder')"
           v-model="queryForm.query"
           clearable
           type="text"
-        ></el-input>
+          :placeholder="$t('table.placeholder')"
+          @clear="initGetUser"
+        >
+          <template #append>
+            <el-button :icon="Search" @click="initGetUser" />
+          </template>
+        </el-input>
       </el-col>
+
       <!-- 搜索用户  添加用户按钮 -->
-      <el-button type="primary" :icon="Search" @click="initGetUser">{{ $t('table.search') }}</el-button>
-      <el-button type="primary" :icon="Plus" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
+      <el-button type="primary" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
     </el-row>
 
     <!-- 用户表格展示 -->
     <el-table :data="tableData" stripe border style="width: 100%">
-      <el-table-column type="index" label="编号"></el-table-column>
       <el-table-column
         v-for="(item, index) in options"
         :prop="item.prop"
@@ -33,6 +37,7 @@
             @change="changeUserState(row)"
           />
         </template>
+
         <!-- 创建时间 -->
         <template
           v-slot="{ row }"
@@ -62,11 +67,11 @@
 
   <!-- 弹窗对话框 -->
   <Dialog
+    v-if="dialogVisible"
     v-model="dialogVisible"
     :dialogTitle="dialogTitle"
     :dialogTableVal="dialogTableVal"
     @initUserList="initGetUser"
-    v-if="dialogVisible"
   />
 </template>
 
@@ -76,7 +81,7 @@ import { ref } from 'vue'
 import { isNull } from '@/utils/filters'
 import { getUser, getUserState, deleteUser } from '@/api/user.js'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search, Edit, Delete, Setting, Plus } from '@element-plus/icons-vue'
+import { Search, Edit, Delete, Setting } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n()
 
@@ -118,7 +123,7 @@ const changeUserState = async (info) => {
   })
 }
 
-// 弹出对话框
+// 新增、编辑用户
 const handleDialogValue = (row) => {
   if (isNull(row)) {
     dialogTitle.value = i18n.t('dialog.addUser')

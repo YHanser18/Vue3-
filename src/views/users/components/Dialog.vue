@@ -87,12 +87,12 @@ const handleConfirm = () => {
     if (valid) {
       // 判断是添加用户还是编辑用户
       props.dialogTitle === t('dialog.addUser') ? await addUser(form.value) : await editUser(form.value)
+      emits('initUserList') // 子传父
+      handleClose()
       ElMessage({
         message: t('message.updeteSuccess'),
         type: 'success'
       })
-      emits('initUserList') // 子传父
-      handleClose()
     } else {
       console.log('error submit!!')
       return false
