@@ -16,7 +16,7 @@ module.exports = {
     hot: false,
     proxy: {
       '/api': {
-        target: 'https://lianghj.top:8888/api/private/v1/',
+        target: 'http://43.143.0.76:8889/api/private/v1/',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       }

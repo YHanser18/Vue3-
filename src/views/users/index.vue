@@ -48,7 +48,9 @@
         <template #default="{ row }" v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
           <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
-          <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
+          <el-tooltip effect="dark" content="分配角色" placement="top" class="box-item">
+            <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
@@ -95,7 +97,7 @@ const tableData = ref([]) // 表格数据
 
 const dialogVisible = ref(false) // 弹窗显示
 const dialogTitle = ref('') // 弹窗标题
-const dialogTableVal = ref({}) // 弹窗标题
+const dialogTableVal = ref({}) // 弹窗内的用户信息
 
 const initGetUser = async () => {
   const res = await getUser(queryForm.value)
@@ -181,6 +183,7 @@ const options = [
 }
 
 .el-pagination {
+  margin: 10px;
   float: right; //居右
   //float: left;居左
   // justify-content: center; //居中

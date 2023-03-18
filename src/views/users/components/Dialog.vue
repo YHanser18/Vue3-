@@ -9,8 +9,13 @@
       :label-position="labelPosition"
       label-width="85px"
     >
+      <!-- 选择编辑用户时 用户名无法修改 -->
       <el-form-item prop="username" :label="$t('form.name')">
-        <el-input v-model="form.username" :placeholder="$t('form.nameInput')" />
+        <el-input
+          v-model="form.username"
+          :placeholder="$t('form.nameInput')"
+          :disabled="dialogTitle === $t('dialog.editUser')"
+        />
       </el-form-item>
 
       <!-- 选择编辑用户时 不显示密码框 -->
