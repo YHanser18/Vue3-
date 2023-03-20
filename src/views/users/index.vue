@@ -48,7 +48,7 @@
         <template #default="{ row }" v-else-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
           <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
-          <el-tooltip effect="dark" content="分配角色" placement="top" class="box-item">
+          <el-tooltip effect="dark" :content="$t('button.assign')" placement="top" class="box-item">
             <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
           </el-tooltip>
         </template>
@@ -95,8 +95,8 @@ const queryForm = ref({
 const total = ref(0) // 分页总数
 const tableData = ref([]) // 表格数据
 
-const dialogVisible = ref(false) // 弹窗显示
 const dialogTitle = ref('') // 弹窗标题
+const dialogVisible = ref(false) // 弹窗显示
 const dialogTableVal = ref({}) // 弹窗内的用户信息
 
 const initGetUser = async () => {

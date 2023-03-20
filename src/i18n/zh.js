@@ -76,8 +76,22 @@ export default {
     nameRequired: '长度在2~5个字符之间',
     emailRequired: '请输入正确的邮箱地址'
   },
+  // 权限列表
+  right: {
+    number: '编号',
+    permission: '权限名称',
+    way: '路径',
+    privilege: '权限等级',
+  },
+  // 权限等级
+  rightLevel: {
+    one: '一级',
+    two: '二级',
+    three: '三级',
+  },
   // 按钮
   button: {
+    assign: '分配角色',
     confirm: '确定',
     cancel: '取消'
   }

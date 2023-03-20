@@ -76,8 +76,22 @@ export default {
     nameRequired: 'The length is between 2 and 9 characters',
     emailRequired: 'Please enter the correct email address'
   },
+  // 权限列表
+  right: {
+    number: 'Number',
+    permission: 'Permission Name',
+    way: 'Way',
+    privilege: 'Privilege level',
+  },
+  // 权限等级
+  rightLevel: {
+    one: 'one-level',
+    two: 'two-level',
+    three: 'three-level',
+  },
   // 按钮
   button: {
+    assign: 'Assign Roles',
     confirm: 'Confirm',
     cancel: 'Cancel'
   }
