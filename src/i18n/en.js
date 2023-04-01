@@ -31,7 +31,9 @@ export default {
   dialog: {
     addUser: 'Add User',
     editUser: 'Edit User',
-    deleteTitle: 'Are you sure you want to delete the user '
+    deleteTitle: 'Are you sure you want to delete the user ',
+    addRole: 'Add Role',
+    editRole: 'Add Role',
   },
   // 弹窗信息
   message: {
@@ -50,7 +52,11 @@ export default {
     action: 'Action',
     search: 'Search',
     adduser: 'Add User',
-    placeholder: 'Please enter a user name to search for'
+    placeholder: 'Please enter a user name to search for',
+
+    addrole: 'Add Role',
+    roleName: 'Role Name',
+    roleDesc: 'Role Description',
   },
   // 引导页
   driver: {

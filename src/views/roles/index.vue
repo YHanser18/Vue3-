@@ -4,7 +4,7 @@
     <!-- 添加角色按钮区 -->
     <el-row>
       <el-col>
-        <el-button @click="handleDialog()" type="primary" :icon="Plus">添加角色</el-button>
+        <el-button @click="handleDialog()" type="primary" :icon="Plus">{{ $t('table.addrole') }}</el-button>
       </el-col>
     </el-row>
 
@@ -16,7 +16,7 @@
       <el-table-column
         v-for="(item,index) in tableLabel"
         :prop="item.prop"
-        :label="item.label"
+        :label="$t(`table.${item.label}`)"
         :key="index"
         align="center"
       >
@@ -67,10 +67,10 @@ initGetRoles()
 // 新增、编辑用户
 const handleDialog = (row) => {
   if (isNull(row)) {
-    dialogTitle.value = i18n.t('dialog.addUser')
+    dialogTitle.value = i18n.t('dialog.addRole')
     dialogTableVal.value = {}
   } else {
-    dialogTitle.value = i18n.t('dialog.editUser')
+    dialogTitle.value = i18n.t('dialog.editRole')
     dialogTableVal.value = JSON.parse(JSON.stringify(row))
   }
   dialogVisible.value = true // 关闭弹窗
@@ -97,11 +97,14 @@ const delUser = (row) => {
 
 // 表格内容
 const tableLabel = [
-  { label: '角色名称', prop: 'roleName' },
-  { label: '角色描述', prop: 'roleDesc' },
-  { label: '操作', prop: 'action' },
+  { label: 'roleName', prop: 'roleName' },
+  { label: 'roleDesc', prop: 'roleDesc' },
+  { label: 'action', prop: 'action' },
 ]
 </script>
 
 <style lang="scss" scoped>
+.el-table {
+  margin: 30px 0;
+}
 </style>

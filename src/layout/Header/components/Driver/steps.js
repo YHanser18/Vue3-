@@ -15,8 +15,4 @@ export const steps = (i18n) => [
     element: '#screenFull',
     popover: { title: i18n('driver.fullScreen'), position: 'left' }
   }
-  // {
-  //   element: '#language',
-  //   popover: { title: i18n('driver.language'), position: 'left' }
-  // }
 ]

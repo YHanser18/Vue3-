@@ -31,7 +31,9 @@ export default {
   dialog: {
     addUser: '新增用户',
     editUser: '编辑用户',
-    deleteTitle: '确定要删除用户'
+    deleteTitle: '确定要删除用户',
+    addRole: '新增角色',
+    editRole: '编辑角色',
   },
   // 弹窗信息
   message: {
@@ -50,7 +52,11 @@ export default {
     action: '操作',
     search: '搜索',
     adduser: '新增用户',
-    placeholder: '请输入用户姓名'
+    placeholder: '请输入用户姓名',
+
+    addrole: '新增角色',
+    roleName: '角色名称',
+    roleDesc: '角色描述',
   },
   // 引导页
   driver: {

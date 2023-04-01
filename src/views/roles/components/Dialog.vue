@@ -14,7 +14,7 @@
         <el-input
           v-model="form.username"
           :placeholder="$t('form.nameInput')"
-          :disabled="dialogTitle === $t('dialog.editUser')"
+          :disabled="dialogTitle === $t('dialog.editRole')"
         />
       </el-form-item>
 
@@ -22,7 +22,7 @@
       <el-form-item
         prop="password"
         :label="$t('form.password')"
-        v-if="dialogTitle === $t('dialog.addUser')"
+        v-if="dialogTitle === $t('dialog.addRole')"
       >
         <el-input v-model="form.password" :placeholder="$t('form.passwordInput')" />
       </el-form-item>
@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { addUser, editUser } from '@/api/user'
+import { addRole, editRole } from '@/api/right'
 import { defineEmits, ref, defineProps, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import i18n from '@/i18n'
@@ -91,7 +91,7 @@ const handleConfirm = () => {
   dialogForm.value.validate(async valid => {
     if (valid) {
       // 判断是添加用户还是编辑用户
-      props.dialogTitle === t('dialog.addUser') ? await addUser(form.value) : await editUser(form.value)
+      props.dialogTitle === t('dialog.addRole') ? await addRole(form.value) : await editRole(form.value)
       emits('initUserList') // 子传父
       handleClose()
       ElMessage({

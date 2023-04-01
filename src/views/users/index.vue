@@ -17,7 +17,7 @@
       </el-col>
 
       <!-- 搜索用户  添加用户按钮 -->
-      <el-button type="primary" @click="handleDialogValue()">{{ $t('table.adduser') }}</el-button>
+      <el-button type="primary" @click="handleDialog()">{{ $t('table.adduser') }}</el-button>
     </el-row>
 
     <!-- 用户表格展示 -->
@@ -46,7 +46,7 @@
 
         <!-- 修改  删除用户按钮 -->
         <template #default="{ row }" v-else-if="item.prop === 'action'">
-          <el-button type="primary" size="small" :icon="Edit" @click="handleDialogValue(row)" />
+          <el-button type="primary" size="small" :icon="Edit" @click="handleDialog(row)" />
           <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
           <el-tooltip effect="dark" :content="$t('button.assign')" placement="top" class="box-item">
             <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
@@ -126,7 +126,7 @@ const changeUserState = async (info) => {
 }
 
 // 新增、编辑用户
-const handleDialogValue = (row) => {
+const handleDialog = (row) => {
   if (isNull(row)) {
     dialogTitle.value = i18n.t('dialog.addUser')
     dialogTableVal.value = {}
