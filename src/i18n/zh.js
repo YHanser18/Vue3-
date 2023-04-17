@@ -33,7 +33,7 @@ export default {
     editUser: '编辑用户',
     deleteTitle: '确定要删除用户',
     addRole: '新增角色',
-    editRole: '编辑角色',
+    editRole: '编辑角色'
   },
   // 弹窗信息
   message: {
@@ -56,7 +56,7 @@ export default {
 
     addrole: '新增角色',
     roleName: '角色名称',
-    roleDesc: '角色描述',
+    roleDesc: '角色描述'
   },
   // 引导页
   driver: {
@@ -87,13 +87,13 @@ export default {
     number: '编号',
     permission: '权限名称',
     way: '路径',
-    privilege: '权限等级',
+    privilege: '权限等级'
   },
   // 权限等级
   rightLevel: {
     one: '一级',
     two: '二级',
-    three: '三级',
+    three: '三级'
   },
   // 按钮
   button: {

@@ -5,7 +5,9 @@ const routes = [
     path: '/login', name: 'login', component: () => import('@/views/Login')
   },
   {
-    path: '/', name: '/', component: () => import('@/layout'),
+    path: '/',
+name: '/',
+component: () => import('@/layout'),
     redirect: '/users',
     children: [
       { path: 'users', name: 'users', component: () => import('@/views/Users') },

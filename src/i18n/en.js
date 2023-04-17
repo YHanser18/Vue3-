@@ -33,7 +33,7 @@ export default {
     editUser: 'Edit User',
     deleteTitle: 'Are you sure you want to delete the user ',
     addRole: 'Add Role',
-    editRole: 'Add Role',
+    editRole: 'Add Role'
   },
   // 弹窗信息
   message: {
@@ -56,7 +56,7 @@ export default {
 
     addrole: 'Add Role',
     roleName: 'Role Name',
-    roleDesc: 'Role Description',
+    roleDesc: 'Role Description'
   },
   // 引导页
   driver: {
@@ -87,13 +87,13 @@ export default {
     number: 'Number',
     permission: 'Permission Name',
     way: 'Way',
-    privilege: 'Privilege level',
+    privilege: 'Privilege level'
   },
   // 权限等级
   rightLevel: {
     one: 'one-level',
     two: 'two-level',
-    three: 'three-level',
+    three: 'three-level'
   },
   // 按钮
   button: {

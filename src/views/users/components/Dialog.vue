@@ -1,5 +1,10 @@
 <template>
-  <el-dialog :model-value="dialogVisible" :title="dialogTitle" @close="handleClose" width="45%">
+  <el-dialog
+    :model-value="dialogVisible"
+    :title="dialogTitle"
+    @close="handleClose"
+    width="45%"
+  >
     <!-- 新增  修改用户的表单验证 -->
     <el-form
       ref="dialogForm"
@@ -24,7 +29,10 @@
         :label="$t('form.password')"
         v-if="dialogTitle === $t('dialog.addUser')"
       >
-        <el-input v-model="form.password" :placeholder="$t('form.passwordInput')" />
+        <el-input
+          v-model="form.password"
+          :placeholder="$t('form.passwordInput')"
+        />
       </el-form-item>
       <el-form-item prop="email" :label="$t('form.email')">
         <el-input v-model="form.email" :placeholder="$t('form.emailInput')" />
@@ -38,7 +46,9 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleClose">{{ $t('button.cancel') }}</el-button>
-        <el-button type="primary" @click="handleConfirm">{{ $t('button.confirm') }}</el-button>
+        <el-button type="primary" @click="handleConfirm">{{
+          $t('button.confirm')
+        }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -46,7 +56,7 @@
 
 <script setup>
 import { addUser, editUser } from '@/api/user'
-import { defineEmits, ref, defineProps, watch } from 'vue'
+import { ref, defineProps, defineEmits, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import i18n from '@/i18n'
 
@@ -72,14 +82,18 @@ const props = defineProps({
   },
   dialogTableVal: {
     type: Object,
-    default: () => { }
+    default: () => {}
   }
 })
 
 // 监听标题内容
-watch(() => props.dialogTableVal, () => {
-  form.value = props.dialogTableVal
-}, { deep: true, immediate: true })
+watch(
+  () => props.dialogTableVal,
+  () => {
+    form.value = props.dialogTableVal
+  },
+  { deep: true, immediate: true }
+)
 
 // 关闭弹窗
 const handleClose = () => {
@@ -88,10 +102,12 @@ const handleClose = () => {
 
 const handleConfirm = () => {
   // 提交时验证
-  dialogForm.value.validate(async valid => {
+  dialogForm.value.validate(async (valid) => {
     if (valid) {
       // 判断是添加用户还是编辑用户
-      props.dialogTitle === t('dialog.addUser') ? await addUser(form.value) : await editUser(form.value)
+      props.dialogTitle === t('dialog.addUser')
+        ? await addUser(form.value)
+        : await editUser(form.value)
       emits('initUserList') // 子传父
       handleClose()
       ElMessage({
@@ -116,7 +132,11 @@ const rules = ref({
   ],
   email: [
     { required: true, message: t('form.emailInput'), trigger: 'blur' },
-    { type: 'email', message: t('form.emailRequired'), trigger: ['blur', 'change'] }
+    {
+      type: 'email',
+      message: t('form.emailRequired'),
+      trigger: ['blur', 'change']
+    }
   ],
   mobile: [
     { required: true, message: t('form.mobileInput'), trigger: 'blur' },

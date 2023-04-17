@@ -15,6 +15,5 @@ export const editUser = (data) => request.put(`users/${data.id}`, data)
 // 删除用户
 export const deleteUser = (id) => request.delete(`users/${id}`)
 
-
-//分配角色
+// 分配角色
 export const allotUser = (data, rid) => request.put(`users/${data}/role`, { rid })

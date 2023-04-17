@@ -4,7 +4,9 @@
     <!-- 添加角色按钮区 -->
     <el-row>
       <el-col>
-        <el-button @click="handleDialog()" type="primary" :icon="Plus">{{ $t('table.addrole') }}</el-button>
+        <el-button @click="handleDialog()" type="primary" :icon="Plus">{{
+          $t('table.addrole')
+        }}</el-button>
       </el-col>
     </el-row>
 
@@ -14,7 +16,7 @@
       <el-table-column type="expand"></el-table-column>
 
       <el-table-column
-        v-for="(item,index) in tableLabel"
+        v-for="(item, index) in tableLabel"
         :prop="item.prop"
         :label="$t(`table.${item.label}`)"
         :key="index"
@@ -22,10 +24,30 @@
       >
         <!-- 修改  删除用户按钮 -->
         <template #default="{ row }" v-if="item.prop === 'action'">
-          <el-button type="primary" size="small" :icon="Edit" @click="handleDialog(row)" />
-          <el-button type="danger" size="small" :icon="Delete" @click="delUser(row)" />
-          <el-tooltip effect="dark" :content="$t('button.assign')" placement="top" class="box-item">
-            <el-button type="warning" size="small" :icon="Setting" @click="handleSet" />
+          <el-button
+            type="primary"
+            size="small"
+            :icon="Edit"
+            @click="handleDialog(row)"
+          />
+          <el-button
+            type="danger"
+            size="small"
+            :icon="Delete"
+            @click="delUser(row)"
+          />
+          <el-tooltip
+            effect="dark"
+            :content="$t('button.assign')"
+            placement="top"
+            class="box-item"
+          >
+            <el-button
+              type="warning"
+              size="small"
+              :icon="Setting"
+              @click="handleSet"
+            />
           </el-tooltip>
         </template>
       </el-table-column>
@@ -48,7 +70,7 @@ import { ref } from 'vue'
 import { isNull } from '@/utils/filters'
 import { getRoles, deleteRole } from '@/api/right'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search, Edit, Delete, Setting, Plus } from '@element-plus/icons-vue'
+import { Edit, Delete, Setting, Plus } from '@element-plus/icons-vue'
 import { useI18n } from 'vue-i18n'
 const i18n = useI18n()
 
@@ -82,24 +104,28 @@ const delUser = (row) => {
     confirmButtonText: i18n.t('button.confirm'),
     cancelButtonText: i18n.t('button.cancel'),
     type: 'warning'
-  }).then(async () => {
-    await deleteRole(row.id)
-    ElMessage({
-      type: 'success', message: i18n.t('message.deletedSuccess')
-    })
-    initGetRoles() // 删除成功后刷新数据
-  }).catch(() => {
-    ElMessage({
-      type: 'info', message: i18n.t('message.deletedFailure')
-    })
   })
+    .then(async () => {
+      await deleteRole(row.id)
+      ElMessage({
+        type: 'success',
+        message: i18n.t('message.deletedSuccess')
+      })
+      initGetRoles() // 删除成功后刷新数据
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: i18n.t('message.deletedFailure')
+      })
+    })
 }
 
 // 表格内容
 const tableLabel = [
   { label: 'roleName', prop: 'roleName' },
   { label: 'roleDesc', prop: 'roleDesc' },
-  { label: 'action', prop: 'action' },
+  { label: 'action', prop: 'action' }
 ]
 </script>
 

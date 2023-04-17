@@ -12,7 +12,6 @@ export const editRole = (data) => request.put(`roles/${data.id}`, data)
 // 删除角色
 export const deleteRole = (id) => request.delete(`roles/${id}`)
 
-
 // 取消角色权限
 export const deleteRight = (roleId, rightId) => request.delete(`roles/${roleId}/rights/${rightId}`)
 
